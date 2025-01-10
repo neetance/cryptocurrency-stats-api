@@ -3,15 +3,18 @@ import { Request, Response } from 'express';
 
 export const getCoinData = async (req: Request, res: Response) => {
    try {
-      const coin = req.query.coin;
+      let coin = req.query.coin as string;
       if (!coin) {
          res.status(400).json({ error: 'Coin parameter is required' });
          return;
       }
 
+      coin = coin.charAt(0).toUpperCase() + coin.slice(1);
+
       const data = await CryptoCurrencyData.find({ name: coin as string })
          .sort({ timestamp: -1 })
          .limit(1);
+
       res.status(200).json(data);
    } catch (err) {
       res.status(500).json({ error: err });
@@ -20,11 +23,13 @@ export const getCoinData = async (req: Request, res: Response) => {
 
 export const getDeviation = async (req: Request, res: Response) => {
    try {
-      const coin = req.query.coin;
+      let coin = req.query.coin as string;
       if (!coin) {
          res.status(400).json({ error: 'Coin parameter is required' });
          return;
       }
+
+      coin = coin.charAt(0).toUpperCase() + coin.slice(1);
 
       const data = await CryptoCurrencyData.find({ name: coin as string })
          .sort({ timestamp: -1 })

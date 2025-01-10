@@ -5,13 +5,23 @@
 
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
+import dotenv from 'dotenv';
 import { Agenda } from 'agenda';
 import CryptoCurrencyData from '../models/CryptoCurrencyData';
 
+dotenv.config();
+
 axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
 const agenda = new Agenda({
-   db: { address: process.env.MONGODB_URI!, collection: 'jobs' },
+   db: { address: process.env.MONGO_URL!, collection: 'jobs' },
    processEvery: '1 minute',
+});
+
+agenda.on('ready', async () => {
+   console.log('Agenda is ready');
+});
+agenda.on('start', async (job) => {
+   console.log(`Job ${job.attrs.name} starting`);
 });
 
 agenda.define('fetch price', async () => {

@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './routes/APIRoutes';
+import './jobs/PriceFetcher';
 
 dotenv.config();
 
