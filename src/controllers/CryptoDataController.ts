@@ -15,7 +15,11 @@ export const getCoinData = async (req: Request, res: Response) => {
          .sort({ timestamp: -1 })
          .limit(1);
 
-      res.status(200).json(data);
+      res.status(200).json({
+         name: data[0].name,
+         data: data[0].data,
+         timestamp: data[0].timestamp,
+      });
    } catch (err) {
       res.status(500).json({ error: err });
    }
@@ -42,7 +46,7 @@ export const getDeviation = async (req: Request, res: Response) => {
          squaredDiffs.reduce((a, b) => a + b) / squaredDiffs.length;
       const deviation = Math.sqrt(variance);
 
-      res.status(200).json({ deviation });
+      res.status(200).json({ name: coin, deviation });
    } catch (err) {
       res.status(500).json({ error: err });
    }
