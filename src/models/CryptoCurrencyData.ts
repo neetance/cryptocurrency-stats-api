@@ -1,22 +1,25 @@
 import { model, Schema } from 'mongoose';
-import DataParams, { IDataParams } from './DataParams';
 
 export interface ICryptoCurrencyData extends Document {
    name: string;
    symbol: string;
-   data: IDataParams[];
+   data: {
+      price: number;
+      marketCap: number;
+      change24h: number;
+   };
+   timestamp: Date;
 }
 
 const CryptoCurrencyDataSchema = new Schema({
    name: { type: String, required: true },
    symbol: { type: String, required: true },
-   data: [
-      {
-         type: Schema.Types.ObjectId,
-         ref: 'DataParams',
-         required: true,
-      },
-   ],
+   data: {
+      price: { type: Number, required: true },
+      marketCap: { type: Number, required: true },
+      change24h: { type: Number, required: true },
+   },
+   timestamp: { type: Date, required: true },
 });
 
 const CryptoCurrencyData = model<ICryptoCurrencyData>(
