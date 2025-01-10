@@ -51,7 +51,7 @@ Before using the API, ensure you have the following installed:
 
 ## Endpoints
 
-### 1. /stats
+### 1. /api/stats
 
 - Method: GET
 - Description: Retrieves the latest cryptocurrency stats.
@@ -68,7 +68,7 @@ Before using the API, ensure you have the following installed:
    }
    ```
 
-### 2. /deviation
+### 2. /api/deviation
 
 - Method: GET
 - Description: Retrieves the percentage deviation in cryptocurrency prices compared to previous data.
